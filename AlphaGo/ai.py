@@ -14,8 +14,8 @@ class GreedyPolicyPlayer(object):
 				max_prob = max(sensible_actions, key=lambda (a, p): p)
 				return max_prob[0]
 			else:
-				# No legal moves available, do so pass move
+				# No legal moves available, so do pass move
 				return None
 		else:
-			# No legal moves available, do so pass move
+			# No legal moves available, so do pass move
 			return None
