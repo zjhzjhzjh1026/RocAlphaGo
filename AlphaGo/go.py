@@ -233,7 +233,10 @@ class GameState(object):
 		if self.is_legal(action):
 			# reset ko
 			self.ko = None
+			# is_sensible = True
 			if action is not PASS_MOVE:
+				# Check sensibleness
+				# is_sensible = not self.is_eye(action, self.current_player)
 				(x,y) = action
 				self.board[x][y] = color
 				self._update_neighbors(action)
@@ -263,6 +266,7 @@ class GameState(object):
 			self.current_player = -color
 			self.turns_played += 1
 			self.history.append(action)
+			# return is_sensible
 		else:
 			raise IllegalMove(str(action))
 
