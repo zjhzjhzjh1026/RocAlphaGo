@@ -1,0 +1,29 @@
+/*********************************************************************************
+*FileName:39***_CombinationSum_BackTracking！
+*Author:  Javan_Z
+*Version: 1.0
+*Date:  2016.7.13
+16ms, beats 69.87%
+BackTracking！！！！！
+**********************************************************************************/
+class Solution {
+public:
+	vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+		sort(candidates.begin(), candidates.end());
+		vector<vector<int>> ans;
+		vector<int> combination;
+		getCombination(candidates, target, ans, combination, 0);
+		return ans;
+	}
+	void getCombination(vector<int>& candidates, int target, vector<vector<int>>& ans, vector<int>& combination, int front) {
+		if (0 == target) {                      //combination存放每组的答案，拼好后放入ans中
+			ans.push_back(combination);
+			return;
+		}
+		for (int i = front; i<candidates.size() && target >= candidates[i]; i++) {
+			combination.push_back(candidates[i]);        //backtracking关键三步
+			getCombination(candidates, target - candidates[i], ans, combination, i);
+			combination.pop_back();
+		}
+	}
+};
