@@ -1,0 +1,28 @@
+/*********************************************************************************
+*FileName:91_DecodeWays_DP
+*Author : Javan_Z
+*Version : 1.0
+*Date : 2016.9.12
+So many board cases need to be considered in this question, be careful.
+**********************************************************************************/
+class Solution {
+public:
+	int numDecodings(string s) {
+		int len = s.size();
+		if (s[0]>'2'&&s[1] == '0' || s[0] == '0' || (s[1]>'2' || s[1]<'1') && s[2] == '0' || !len) return 0;  //case 30/03/(100、130）
+		int dp[len] = { 1 };
+		if (strtoint(s, 1)>26 || s[1] == '0' || s[2] == '0') dp[1] = 1;  //case 10/110
+		else dp[1] = 2;
+		for (int i = 2; i<len; i++) {
+			if ((s[i]>'2' || s[i]<'1') && s[i + 1] == '0')  return 0;  //case…………30/00,return 0
+			if (strtoint(s, i)>26 || s[i] == '0' || s[i - 1] == '0' || s[i + 1] == '0') dp[i] = dp[i - 1];  //case …………0 11/10 1/1 10均只有一种划分情况
+			else dp[i] = dp[i - 1] + dp[i - 2];
+		}
+		//cout<<dp[0]<<dp[1]<<dp[2]<<dp[3];
+		return dp[len - 1];
+	}
+	  
+	int strtoint(string s, int i) {   //把当前位和上一位转化为一个int
+		return s[i] - '0' + (s[i - 1] - '0') * 10;
+	}
+};
